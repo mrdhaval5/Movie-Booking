@@ -1,0 +1,53 @@
+
+package connection;
+ 	
+import java.sql.*;
+
+public class DbConnection {
+      Connection con;
+    ResultSet rs;
+    Statement st;
+
+    public int connect() {
+        try {
+            // for mysql
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3360/db_ngo", "root", "root");
+            
+            return (1);
+        } catch (Exception e) {
+            return (0);
+        }
+    }
+  
+    public int allquery(String q) throws Exception {
+        st = con.createStatement();
+        int n = st.executeUpdate(q);
+        return (n);
+
+    }
+
+    public ResultSet display(String q) throws Exception {
+        st = con.createStatement();
+        rs = st.executeQuery(q);
+
+        return (rs);
+    }
+
+    public String binddropdown(String q) throws Exception {
+        String s = "";
+        st = con.createStatement();
+        rs = st.executeQuery(q);
+
+        while(rs.next())
+        {
+            s =s + "<option value=" + rs.getString(1) + ">" + rs.getString(2) + "</option>";
+        }
+        return (s);
+        
+        // for display 
+        //   out.println(con.binddropdown("select categary_id,categary_name from categary"));
+                   
+    }
+
+}

@@ -1,0 +1,64 @@
+<form action="upload.jsp" method="post" enctype="multipart/form-data">  
+Select File:<input type="file" name="fname"/><br/>  
+<input type="image" src="MainUpload.png"/>  
+</form> 
+
+
+
+<%@ page import="com.oreilly.servlet.MultipartRequest" %>  
+<%  
+MultipartRequest m = new MultipartRequest(request, "d:/new");  
+out.print("successfully uploaded");  
+  
+%>  
+
+
+ MultipartRequest mrequest = new MultipartRequest(request, "C:/uploads");
+    String file_name=mrequest.getParameter("fname");//recieve fname
+
+***************************** work
+
+MultipartRequest mrequest = new MultipartRequest(request, "E:\\project\\carnival\\build\\web\\admin");
+        Enumeration files = mrequest.getFileNames();
+
+        String filename ="";
+        while(files.hasMoreElements() )
+          {
+            String upload = (String)files.nextElement();
+             filename = mrequest.getFilesystemName(upload);
+        }
+
+  String image= "activityimage/" + filename;
+ 
+
+-------------------
+s.replaceAll("\n","<br/>");
+*********************************************************************************
+<%
+    String urlred = "loginfailure.htm";
+    String name = (String) session.getAttribute( "Sessie" );
+    if( name != null )
+    {
+        out.println( "Hello "+name+"!" );
+    }
+    if(name == null)
+    {
+        response.sendRedirect(urlred);
+    }
+    try
+    {
+        MultipartRequest mrequest = new MultipartRequest(request, "C:/jakarta-tomcat-3.2.4/webapps/ProjectGosu/Login/Replays");
+        Enumeration files = mrequest.getFileNames();
+
+        while(files.hasMoreElements() )
+          {
+            String upload = (String)files.nextElement();
+             String filename = mrequest.getFilesystemName(upload);
+            System.out.println(filename);
+        }
+    }
+    catch(Exception ex)
+    {
+    System.out.println("Error creating file: " + ex );
+    }
+%>
